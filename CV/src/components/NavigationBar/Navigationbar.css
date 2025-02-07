@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+li {
+    text-align: center;
+    font-size: 2rem;
+}
+
+nav {
+    background-color: #F5EDED;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+a {
+    background-color: #6482AD;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+a:hover {
+    background-color: #7FA1C3;
+}
+
+a:active {
+    background-color: #E2DAD6;
+}
