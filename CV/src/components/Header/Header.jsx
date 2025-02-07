@@ -1,10 +1,10 @@
 import React from 'react'
+import "./Header.css"
 
 export default function Header() {
   return (
     <header>
-      <h1 className="text-xl">CV</h1>
-      <p className='text-xl'>Beraber CV hazırlayalım</p>
+      <h1>CV Review Website</h1>
     </header>
   )
 }

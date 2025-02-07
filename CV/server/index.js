@@ -69,7 +69,6 @@ app.post('/api/login', async (req, res) => {
 
 
 const genAI = new GoogleGenerativeAI(apiKey);
-console.log(`Your API key is: ${apiKey}`);
 
 app.post('/api/evaluate', upload.single('resume'), async (req, res) => {
   if (!req.file) {
@@ -83,7 +82,7 @@ app.post('/api/evaluate', upload.single('resume'), async (req, res) => {
 
     // Call Gemini API
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    const prompt = `write merhaba dünya 3 times\n${pdfData.text}`;
+    const prompt = `Review this CV and suggest improvements\n${pdfData.text}`;
     
     const result = await model.generateContent(prompt);
     const response = await result.response;

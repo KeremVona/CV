@@ -28,16 +28,18 @@ export default function FileUpload() {
     };
 
   return (
+    <div className="first-div">
     <div className="mt-4">
-        <h2 className="text-xl font-semibold mb-2">Upload Your Resume</h2>
+        <h2 className="text-2xl font-semibold mb-2">Upload Your Resume</h2>
         <input type="file" onChange={e => setFile(e.target.files[0])} className="mb-2" />
-        <button onClick={handleFileUpload} className="bg-purple-500 text-white px-4 py-2 rounded">Upload</button>
+        <button onClick={handleFileUpload} className="text-white px-4 py-2 rounded">Upload</button>
         {feedback && (
-        <div className="mt-4 p-4 border border-gray-300 rounded bg-gray-50">
-          <h2 className="text-xl font-semibold mb-2">AI Feedback:</h2>
+        <div className="mt-4 p-4 border border-gray-300 rounded">
+          <h2 className="text-2xl font-semibold mb-2">AI Feedback:</h2>
           <p>{feedback}</p>
         </div>
         )}
+    </div>
     </div>
   )
 }

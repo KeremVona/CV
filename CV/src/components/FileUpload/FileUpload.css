@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
-div {
-    background-color: gray;
+.first-div {
+    display: flex;
+    justify-content: center;
+    background-color: #E2DAD6;
+    padding-bottom: 10px;
+}
+
+button {
+    background-color: #6482AD;
+    cursor: pointer;
+    font-family: Arial;
+}
+
+button:hover {
+    background-color: #7FA1C3;
+}
+
+button:active {
+    background-color: #E2DAD6;
 }
