@@ -1,10 +1,10 @@
 import React from 'react'
 import "./Header.css"
 
-export default function Header() {
+export default function Header(props) {
   return (
     <header>
-      <h1>CV Review Website</h1>
+      <h1>{ props.header }</h1>
     </header>
   )
 }
