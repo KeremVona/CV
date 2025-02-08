@@ -7,6 +7,10 @@ export default function FileUpload() {
     const [file, setFile] = useState(null);
     const [feedback, setFeedback] = useState(''); 
 
+    function isWrappedWithAsterisk(str) {
+      return str.startsWith('*') && str.endsWith('*') && str.slice(1, -1).includes('*') === false;
+    }
+
     const handleFileUpload = async () => {
       if (!file) {
         alert('Please select a file to upload.');
@@ -21,6 +25,7 @@ export default function FileUpload() {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         alert('Resume uploaded successfully!');
+        //if (isWrappedWithAsterisk(response.data.feedback))
         setFeedback(response.data.feedback); // Display AI feedback
       } catch (err) {
         alert('File upload or evaluation failed');
@@ -36,7 +41,7 @@ export default function FileUpload() {
         {feedback && (
         <div className="mt-4 p-4 border border-gray-300 rounded">
           <h2 className="text-2xl font-semibold mb-2">AI Feedback:</h2>
-          <p>{feedback}</p>
+          <p dangerouslySetInnerHTML={{ __html: feedback.replace(/\n/g, '<br/>') }}></p>
         </div>
         )}
     </div>

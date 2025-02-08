@@ -82,7 +82,20 @@ app.post('/api/evaluate', upload.single('resume'), async (req, res) => {
 
     // Call Gemini API
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    const prompt = `Review this CV and suggest improvements\n${pdfData.text}`;
+    const prompt = `Review this resume and suggest improvements. Return your response in this structured format:
+**Strengths:**
+- Bullet point 1
+- Bullet point 2
+
+**Areas for Improvement:**
+- Bullet point 1
+- Bullet point 2
+
+**Recommendations:**
+- Bullet point 1
+- Bullet point 2
+
+Here is the resume content:\n${pdfData.text}`;
     
     const result = await model.generateContent(prompt);
     const response = await result.response;
