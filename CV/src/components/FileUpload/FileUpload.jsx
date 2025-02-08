@@ -2,6 +2,7 @@ import React from 'react'
 import "./FileUpload.css"
 import { useState } from 'react';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
 
 export default function FileUpload() {
     const [file, setFile] = useState(null);
@@ -31,6 +32,7 @@ export default function FileUpload() {
         alert('File upload or evaluation failed');
       }
     };
+    //<p dangerouslySetInnerHTML={{ __html: feedback.replace(/\n/g, '<br/>') }}></p>
 
   return (
     <div className="first-div">
@@ -41,7 +43,7 @@ export default function FileUpload() {
         {feedback && (
         <div className="mt-4 p-4 border border-gray-300 rounded">
           <h2 className="text-2xl font-semibold mb-2">AI Feedback:</h2>
-          <p dangerouslySetInnerHTML={{ __html: feedback.replace(/\n/g, '<br/>') }}></p>
+          <ReactMarkdown>{feedback}</ReactMarkdown>
         </div>
         )}
     </div>
