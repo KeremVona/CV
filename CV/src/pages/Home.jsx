@@ -154,7 +154,7 @@ export default function Home() {
             <div className="hidden sm:mb-8 sm:flex sm:justify-center">
               <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                 {' '}
-                <a href="https://github.com/KeremVona" target="_blank" className="font-semibold text-indigo-600">
+                <a href="https://github.com/KeremVona/CV" target="_blank" className="font-semibold text-indigo-600">
                   <span aria-hidden="true" className="absolute inset-0" />
                   Github <span aria-hidden="true">&rarr;</span>
                 </a>
@@ -165,8 +165,7 @@ export default function Home() {
                 CV Review Website
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                fugiat veniam occaecat.
+                Upload your CV and the AI will review and give feedback. Did I mention that this project is open source and you can run it <a href="https://github.com/KeremVona/CV" target="_blank" className="locally">locally</a>!
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 {/* Custom File Upload */}
@@ -201,7 +200,7 @@ export default function Home() {
                           <p className="feedback-text">{feedback}</p>
                         </div>
                 )}*/}
-                <a href="" className="text-sm/6 font-semibold text-gray-900">
+                <a href="/about" className="text-sm/6 font-semibold text-gray-900">
                   Learn more <span aria-hidden="true">→</span>
                 </a>
               

@@ -41,7 +41,7 @@ export default function About() {
         <Button className="rounded bg-sky-600 py-2 px-4 text-l text-white data-[hover]:bg-sky-500 data-[hover]:data-[active]:bg-sky-700 mb-2">
       <a href="/home">Go to home</a>
     </Button>
-          <h2 className="text-base/7 font-semibold text-indigo-600"><a href="https://github.com/KeremVona" target="_blank" className="font-semibold text-indigo-600">
+          <h2 className="text-base/7 font-semibold text-indigo-600"><a href="https://github.com/KeremVona/CV" target="_blank" className="font-semibold text-indigo-600">
                   
                   Github
                 </a></h2>
