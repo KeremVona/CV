@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/Header/Header'
 import NavigationBar from '../components/NavigationBar/NavigationBar'
 import { ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon } from '@heroicons/react/24/outline'
+import { Button } from '@headlessui/react'
 
 const features = [
   {
@@ -33,9 +34,17 @@ const features = [
 export default function About() {
   return (
     <div className="bg-white py-24 sm:py-32">
+      
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-indigo-600">Deploy faster</h2>
+        <Button className="rounded bg-sky-600 py-2 px-4 text-l text-white data-[hover]:bg-sky-500 data-[hover]:data-[active]:bg-sky-700 mb-2">
+      <a href="/home">Go to home</a>
+    </Button>
+          <h2 className="text-base/7 font-semibold text-indigo-600"><a href="https://github.com/KeremVona" target="_blank" className="font-semibold text-indigo-600">
+                  
+                  Github
+                </a></h2>
           <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance">
             Everything you need to deploy your app
           </p>
