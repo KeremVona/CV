@@ -1,0 +1,51 @@
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border: 2px dashed #8b5cf6;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #4f46e5;
+    transition: background 0.3s;
+}
+
+.custom-file-upload:hover {
+    background: #f3f4f6;
+}
+
+.feedback-card {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: left;
+}
+
+.feedback-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.feedback-text {
+    line-height: 1.6;
+}
+
+.loading-text {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #6b7280;
+    font-style: italic;
+}
+
+.feedback-text strong {
+    color: #4f46e5;
+}
+
+.feedback-text ul {
+    margin-left: 20px;
+}

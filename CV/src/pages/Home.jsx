@@ -9,6 +9,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import { FaCloudUploadAlt } from 'react-icons/fa';
+import "./Home.css"
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -21,30 +22,33 @@ export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     const [file, setFile] = useState(null);
-    const [feedback, setFeedback] = useState(''); 
+    const [feedback, setFeedback] = useState('');
+    const [loading, setLoading] = useState(false); 
 
     function isWrappedWithAsterisk(str) {
       return str.startsWith('*') && str.endsWith('*') && str.slice(1, -1).includes('*') === false;
     }
 
-    const handleFileUpload = async () => {
-      if (!file) {
-        alert('Please select a file to upload.');
-        return;
-      }
-    
+    const handleFileChange = async (e) => {
+      const selectedFile = e.target.files[0];
+      if (!selectedFile) return;
+  
+      setFile(selectedFile);
+      setFeedback(''); // Clear previous feedback
+      setLoading(true); // Show loading state
+  
       const formData = new FormData();
-      formData.append('resume', file);
-    
+      formData.append('resume', selectedFile);
+  
       try {
         const response = await axios.post('http://localhost:5000/api/evaluate', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
-        alert('Resume uploaded successfully!');
-        //if (isWrappedWithAsterisk(response.data.feedback))
-        setFeedback(response.data.feedback); // Display AI feedback
+        setFeedback(response.data.feedback);
       } catch (err) {
-        alert('File upload or evaluation failed');
+        setFeedback('File upload or evaluation failed');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -165,16 +169,38 @@ export default function Home() {
                 fugiat veniam occaecat.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <input type="file" onChange={e => setFile(e.target.files[0])} className="mb-2" />
+                {/* Custom File Upload */}
+      <label className="custom-file-upload">
+        <input type="file" onChange={handleFileChange} hidden />
+        <FaCloudUploadAlt size={24} />
+        {file ? file.name : 'Choose a file'}
+      </label>
+
+      {/* Loading State */}
+      {loading && <p className="loading-text">Analyzing your resume... ⏳</p>}
+                {/*<label className="custom-file-upload">
+                  <input type="file" onChange={e => setFile(e.target.files[0])} hidden />
+                  <FaCloudUploadAlt size={24} />
+                  {file ? file.name : 'Choose a file'}
+                </label>
+
                 <button onClick={handleFileUpload} className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     Upload your CV
-                </button></div>
-                {feedback && (
-                        <div className="mt-4 p-4 border border-gray-300 rounded">
-                          <h2 className="text-2xl font-semibold mb-2">AI Feedback:</h2>
-                          <ReactMarkdown>{feedback}</ReactMarkdown>
+                </button>*/}
+              </div>
+              {/* AI Feedback */}
+      {feedback && !loading && (
+        <div className="feedback-card">
+          <h2 className="feedback-title">AI Feedback:</h2>
+          <ReactMarkdown className="feedback-text">{feedback}</ReactMarkdown>
+        </div>
+      )}
+                {/*{feedback && (
+                        <div className="feedback-card">
+                          <h2 className="feedback-title">AI Feedback:</h2>
+                          <p className="feedback-text">{feedback}</p>
                         </div>
-                )}
+                )}*/}
                 <a href="" className="text-sm/6 font-semibold text-gray-900">
                   Learn more <span aria-hidden="true">→</span>
                 </a>
