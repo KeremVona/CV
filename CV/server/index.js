@@ -82,28 +82,45 @@ app.post('/api/evaluate', upload.single('resume'), async (req, res) => {
 
     // Call Gemini API
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    const prompt = `Review this resume and suggest improvements. Return your response in this structured format:
-**Strengths:**
-- Bullet point 1
-- Bullet point 2
+    const prompt = `
+      Analyze the following resume and provide structured feedback.
+      1. Provide strengths and areas for improvement.
+      2. Rate the resume on the following criteria (1 to 10):
+         - Content
+         - Formatting
+         - Skills Relevance
+         - Clarity
+      Return your response in JSON format like this:
+      {
+        "feedback": "Your detailed feedback here...",
+        "ratings": {
+          "Content": 8,
+          "Formatting": 7,
+          "Skills Relevance": 9,
+          "Clarity": 6
+        }
+      }
 
-**Areas for Improvement:**
-- Bullet point 1
-- Bullet point 2
+      Resume Text:
+      ${pdfData.text}
+    `;
 
-**Recommendations:**
-- Bullet point 1
-- Bullet point 2
-
-Here is the resume content:\n${pdfData.text}`;
-    
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const feedback = response.text();
+    // ✅ Extract text correctly from Gemini response
+    // ✅ Extract text correctly from Gemini response
+    const responseText = result.response.candidates[0].content.parts[0].text;
 
-    res.json({ feedback });
+    // ✅ Remove potential Markdown formatting
+    const cleanText = responseText.replace(/```json|```/g, '').trim();
+
+    // ✅ Parse cleaned JSON response
+    const parsedResponse = JSON.parse(cleanText);
+
+    const { feedback, ratings } = parsedResponse;
+
+    res.json({ feedback, ratings }); // ✅ Send response
   } catch (err) {
-    console.error(err);
+    console.error("AI Response Error:", err);
     res.status(500).json({ error: 'Resume evaluation failed' });
   }
 });

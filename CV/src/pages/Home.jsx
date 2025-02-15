@@ -9,6 +9,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import { FaCloudUploadAlt } from 'react-icons/fa';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import "./Home.css"
 
 const navigation = [
@@ -20,7 +21,7 @@ const navigation = [
 
 export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+    const [ratings, setRatings] = useState(null);
     const [file, setFile] = useState(null);
     const [feedback, setFeedback] = useState('');
     const [loading, setLoading] = useState(false); 
@@ -36,6 +37,7 @@ export default function Home() {
       setFile(selectedFile);
       setFeedback(''); // Clear previous feedback
       setLoading(true); // Show loading state
+      setRatings(null);
   
       const formData = new FormData();
       formData.append('resume', selectedFile);
@@ -45,6 +47,7 @@ export default function Home() {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         setFeedback(response.data.feedback);
+        setRatings(response.data.ratings);  // Store ratings for graph
       } catch (err) {
         setFeedback('File upload or evaluation failed');
       } finally {
@@ -52,13 +55,18 @@ export default function Home() {
       }
     };
 
+    // Prepare data for the graph
+  const chartData = ratings
+  ? Object.entries(ratings).map(([key, value]) => ({ category: key, score: value }))
+  : [];
+
     return (
         <div className="bg-white">
         <header className="absolute inset-x-0 top-0 z-50">
           <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
             <div className="flex lg:flex-1">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
+                <span className="sr-only">CV Review Website</span>
                 <img
                   alt=""
                   src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
@@ -84,7 +92,7 @@ export default function Home() {
               ))}
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <a href="#" className="text-sm/6 font-semibold text-gray-900">
+              <a href="/" className="text-sm/6 font-semibold text-gray-900">
                 Log in <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
@@ -192,6 +200,21 @@ export default function Home() {
         <div className="feedback-card">
           <h2 className="feedback-title">AI Feedback:</h2>
           <ReactMarkdown className="feedback-text">{feedback}</ReactMarkdown>
+        </div>
+      )}
+
+      {/* Graph Displaying Ratings */}
+      {ratings && !loading && (
+        <div className="chart-container">
+          <h2 className="chart-title">Resume Rating</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData}>
+              <XAxis dataKey="category" />
+              <YAxis domain={[0, 10]} />
+              <Tooltip />
+              <Bar dataKey="score" fill="#8b5cf6" radius={[10, 10, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       )}
                 {/*{feedback && (
